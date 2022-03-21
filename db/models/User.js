@@ -4,18 +4,22 @@ const UserSchema = Schema({
   firstname: {
     type: String,
     required: true,
+    $nin: ["event", "events"],
+    lowercase: true,
   },
   lastname: {
     type: String,
     required: true,
+    $nin: ["event", "events"],
+    lowercase: true,
   },
   password: {
     type: String,
     required: true,
-    // match: [
-    //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-    //   "Minimum eight characters, at least one letter and one number",
-    // ],
+    match: [
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,1024}$/,
+      "Minimum eight characters, at least one capital letter and one number and one special charachter",
+    ],
   },
   email: {
     type: String,
@@ -28,8 +32,6 @@ const UserSchema = Schema({
       "Please fill a valid email address",
     ],
   },
-
-  // profile: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
 });
 
 module.exports = model("User", UserSchema);

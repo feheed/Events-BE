@@ -2,8 +2,21 @@ const express = require("express");
 const passport = require("passport");
 const upload = require("../../middleware/multer");
 
-const { eventListFetch, eventCreate } = require("./events.controllers");
+const {
+  eventListFetch,
+  eventCreate,
+  fetchEvent,
+} = require("./events.controllers");
 const router = express.Router();
+
+router.param("eventId", async (req, res, next, eventId) => {
+  const foundEvent = await fetchEvent(eventId, next);
+  if (foundEvent) {
+    req.event = foundEvent;
+    next();
+  } else next({ status: 404 });
+});
+
 router.get("/", eventListFetch);
 
 router.post(
