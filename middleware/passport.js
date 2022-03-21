@@ -7,9 +7,9 @@ const User = require("../db/models/User");
 
 const { JWT_SECRET } = require("../config/keys");
 
-exports.localStrategy = new LocalStrategy(async (username, password, done) => {
+exports.localStrategy = new LocalStrategy(async (email, password, done) => {
   try {
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ email: email });
 
     const passwordsMatch = user
       ? await bcrypt.compare(password, user.password)

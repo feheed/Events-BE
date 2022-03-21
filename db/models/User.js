@@ -9,16 +9,6 @@ const UserSchema = Schema({
     type: String,
     required: true,
   },
-
-  username: {
-    // max: [15, "Username must between 4 & 15 character"],
-    // min: [5],
-    type: String,
-    required: true,
-    $nin: ["account"],
-    lowercase: true,
-    unique: true,
-  },
   password: {
     type: String,
     required: true,
@@ -39,25 +29,6 @@ const UserSchema = Schema({
     ],
   },
 
-  phonenumber: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-
-  civilId: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-
-  account: {
-    type: Number,
-    unique: true,
-  },
-  amount: {
-    type: Number,
-  },
   // profile: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
 });
 
