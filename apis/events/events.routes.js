@@ -1,11 +1,13 @@
 const express = require("express");
 const passport = require("passport");
 const upload = require("../../middleware/multer");
-
 const {
   eventListFetch,
   eventCreate,
   fetchEvent,
+  bookEvent,
+  fetchMyEvents,
+  fetchBookedEvents,
 } = require("./events.controllers");
 const router = express.Router();
 
@@ -25,5 +27,15 @@ router.post(
   upload.single("image"),
   eventCreate
 );
+
+router.post(
+  "/bookevent",
+  passport.authenticate("jwt", { session: false }),
+  bookEvent
+);
+
+router.get("/myevents", fetchMyEvents);
+
+router.get("/bookedevents", fetchBookedEvents);
 
 module.exports = router;

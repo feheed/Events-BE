@@ -14,10 +14,12 @@ const EventSchema = mongoose.Schema(
     participants: {
       type: Number,
       match: [
-        /^[2-9][0-9]?$|^100$/,
+        /^[1-9][0-9]?$|^100$/,
         "Please fill numbers starting from 2 participants",
       ],
     },
+
+    joinedparticipants: { type: Number },
     time: { type: String },
     date: { type: String },
     age: {
@@ -30,7 +32,16 @@ const EventSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    category: { type: mongoose.Schema.Types.Object, ref: "CategoryId" },
+    bookedevent: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CategoryId",
+    },
   },
   { timestamps: true }
 );

@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { model, Schema } = require("mongoose");
 
 const UserSchema = Schema({
@@ -32,6 +33,8 @@ const UserSchema = Schema({
       "Please fill a valid email address",
     ],
   },
+
+  booked: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
 });
 
 module.exports = model("User", UserSchema);
