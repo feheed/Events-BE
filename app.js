@@ -43,5 +43,5 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 connectDB(); //connect to the database
-const PORT = 8001; //connection to a host
+const PORT = 8080; //connection to a host
 app.listen(PORT, () => console.log(`Application running on localhost:${PORT}`));
