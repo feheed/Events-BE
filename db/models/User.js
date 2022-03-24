@@ -1,6 +1,11 @@
 const { default: mongoose } = require("mongoose");
 const { model, Schema } = require("mongoose");
 
+// const validatepassword = (passwords) => {
+//   const re = /^(=.*[A-Za-z])(=.*\d)[A-Za-z\d]{8,}$/g;
+//   return re.test(passwords);
+// };
+
 const UserSchema = Schema({
   firstname: {
     type: String,
@@ -17,10 +22,11 @@ const UserSchema = Schema({
   password: {
     type: String,
     required: true,
-    match: [
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,1024}$/,
-      "Minimum eight characters, at least one capital letter and one number and one special charachter",
-    ],
+    // validate: [validatepassword, "khalas 3ad"],
+    // match: [
+    //   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/g,
+    //   "Minimum eight characters, at least one letter and one number",
+    // ],
   },
   email: {
     type: String,

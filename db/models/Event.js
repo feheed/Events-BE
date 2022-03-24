@@ -9,10 +9,14 @@ const EventSchema = mongoose.Schema(
       required: true,
     },
     image: { type: String },
-    area: { type: String },
+    area: {
+      type: String,
+      // required: true
+    },
     description: { type: String },
     participants: {
       type: Number,
+      // required: true,
       match: [
         /^[1-9][0-9]?$|^100$/,
         "Please fill numbers starting from 2 participants",

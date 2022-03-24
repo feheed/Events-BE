@@ -35,17 +35,13 @@ exports.eventCreate = async (req, res, next) => {
       { id: req.body.category._id },
       { $push: { events: newEvent._id } }
     );
-    await Event.updateOne({
-      _id: newEvent._id,
-      $inc: { joinedparticipants: 1 },
-    });
-    // await Event.findByIdAndUpdate(
-    //   { _id: req.body._id },
-    //   { $push: { joinedparticipants: +1 } }
-    // );
     await newEvent.populate({
       path: "owner",
       select: "username",
+    });
+    await Event.updateOne({
+      _id: newEvent._id,
+      $inc: { joinedparticipants: 1 },
     });
 
     return res.status(201).json(newEvent);
