@@ -25,24 +25,16 @@ exports.eventListFetch = async (req, res, next) => {
 
 exports.eventCreate = async (req, res, next) => {
   try {
-    if (req.file) {
-      req.body.image = `/${req.file.path}`;
-      req.body.image = req.body.image.replace("\\", "/");
-    }
-    req.body.owner = req.user._id;
+    req.body.joinedparticipants = 1;
     const newEvent = await Event.create(req.body);
     await Category.findByIdAndUpdate(
-      { id: req.body.category._id },
+      { _id: req.body.category },
       { $push: { events: newEvent._id } }
     );
-    await newEvent.populate({
-      path: "owner",
-      select: "username",
-    });
-    await Event.updateOne({
-      _id: newEvent._id,
-      $inc: { joinedparticipants: 1 },
-    });
+    // await newEvent.populate({
+    //   path: "owner",
+    //   select: "email",
+    // });
 
     return res.status(201).json(newEvent);
   } catch (error) {
@@ -70,7 +62,7 @@ exports.bookEvent = async (res, req, next) => {
 //fetchMyEvents
 exports.fetchMyEvents = async (res, req, next) => {
   try {
-    const myevent = await Event.find({ owner: req.body });
+    const myevent = await Event.find({ owner: myevent._id });
     res.json(myevent);
   } catch (error) {
     next(error);

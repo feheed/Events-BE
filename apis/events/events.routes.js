@@ -34,7 +34,7 @@ router.post(
   bookEvent
 );
 
-router.get("/myevents", fetchMyEvents);
+router.get("/myevent", fetchMyEvents);
 
 router.get("/bookedevents", fetchBookedEvents);
 

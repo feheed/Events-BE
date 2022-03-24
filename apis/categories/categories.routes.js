@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const { fetchCategory, getCategories } = require("./categories.controllers");
+const {
+  fetchCategory,
+  getCategories,
+  createCategory,
+} = require("./categories.controllers");
 
 router.param("categoryId", async (req, res, next, categoryId) => {
   const foundcategory = await fetchCategory(categoryId, next);
@@ -12,5 +16,6 @@ router.param("categoryId", async (req, res, next, categoryId) => {
 });
 
 router.get("/", getCategories);
+router.post("/", createCategory);
 
 module.exports = router;
