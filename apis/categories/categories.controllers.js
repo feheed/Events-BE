@@ -17,3 +17,12 @@ exports.getCategories = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.createCategory = async (req, res, next) => {
+  try {
+    const newCat = await Category.create(req.body);
+    return res.json(newCat);
+  } catch (error) {
+    next(error);
+  }
+};
